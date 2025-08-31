@@ -5,3 +5,5 @@ pydantic
 alembic
 python-multipart
 tzdata
+pandas
+psycopg2-binary

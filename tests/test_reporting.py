@@ -8,7 +8,8 @@ from store_monitoring import reporting, models
 MockStoreTimezone = namedtuple("MockStoreTimezone", ["store_id", "timezone_str"])
 MockBusinessHours = namedtuple("MockBusinessHours", ["store_id", "day_of_week", "start_time_local", "end_time_local"])
 
-# A more robust mock for chained SQLAlchemy queries
+# A more robust mock for chained SQLAlchemy queries.
+# This class holds its own state, preventing data from leaking between calls.
 class MockQuery:
     def __init__(self, data):
         self._data = list(data)
@@ -29,7 +30,8 @@ class MockQuery:
     def all(self):
         return self._data
 
-# A mock DB session that uses the robust MockQuery
+# A mock DB session that uses the robust MockQuery.
+# Each call to .query() returns a *new* MockQuery object, just like SQLAlchemy.
 class MockDb:
     def __init__(self, data):
         self.data = data
