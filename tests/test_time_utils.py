@@ -65,8 +65,10 @@ def test_get_business_hours_for_date_overnight_schedule():
     assert end1_utc < start2_utc
 
 def test_24_7_business_hours():
-    """Tests the edge case of 24/7 business hours."""
+   
     local_date = date(2023, 1, 1)
+    
+    
     start_time = time(0, 0)
     end_time = time(23, 59, 59) # Representing a full day
     
@@ -74,7 +76,7 @@ def test_24_7_business_hours():
     
     assert len(intervals) == 1
     
-    start_utc, end_utc = intervals[0]
-    duration = end_utc - start_utc
-    # Duration should be almost 24 hours
-    assert duration.total_seconds() >= (24 * 3600 - 1)
+    start_utc, end_utc =intervals[0]
+    duration = end_utc -  start_utc
+    assert duration.total_seconds() >= (  24 * 3600 - 1)
+

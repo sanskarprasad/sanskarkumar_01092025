@@ -5,7 +5,6 @@ from .models import StoreStatusPoll
 def get_status_intervals(
     polls: List[StoreStatusPoll], window_start_utc: datetime, window_end_utc: datetime
 ) -> List[Tuple[datetime, datetime, str]]:
-    """Generates continuous status intervals from discrete polls using interpolation."""
     if not polls:
         return [(window_start_utc, window_end_utc, "inactive")]
 

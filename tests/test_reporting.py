@@ -122,8 +122,5 @@ def test_mixed_status_store():
     
     report = reporting.calculate_store_report(store_id, NOW, mock_db)
     
-    # Last hour window (17:00 -> 18:00 UTC):
-    # Active from 17:00 to 17:45 (45 mins).
-    # Inactive from 17:45 to 18:00 (15 mins).
     assert report["uptime_last_hour_minutes"] == pytest.approx(45)
     assert report["downtime_last_hour_minutes"] == pytest.approx(15)

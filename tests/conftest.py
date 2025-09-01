@@ -5,10 +5,8 @@ from store_monitoring.database import Base
 
 @pytest.fixture
 def test_db():
-    """
-    Provides an in-memory SQLite database session for testing.
-    """
-    # Use SQLite in-memory database
+    
+   
     engine = create_engine("sqlite:///:memory:", connect_args={"check_same_thread": False})
     TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

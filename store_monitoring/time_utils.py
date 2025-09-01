@@ -3,14 +3,12 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 from typing import List, Tuple
 
 def get_store_timezone(timezone_str: str) -> ZoneInfo:
-    """Safely returns a ZoneInfo object, defaulting to 'America/Chicago'."""
     try:
         return ZoneInfo(timezone_str)
     except ZoneInfoNotFoundError:
         return ZoneInfo("America/Chicago")
 
 def convert_utc_to_local(utc_dt: datetime, tz: ZoneInfo) -> datetime:
-    """Converts a timezone-aware UTC datetime to a local datetime."""
     if utc_dt.tzinfo is None:
         utc_dt = utc_dt.replace(tzinfo=timezone.utc)
     return utc_dt.astimezone(tz)
@@ -18,7 +16,6 @@ def convert_utc_to_local(utc_dt: datetime, tz: ZoneInfo) -> datetime:
 def get_business_hours_for_date(
     local_date: date, start_time: time, end_time: time, tz: ZoneInfo
 ) -> List[Tuple[datetime, datetime]]:
-    """Calculates UTC business hour window(s) for a date, handling overnight schedules."""
     intervals = []
     local_start_dt = datetime.combine(local_date, start_time).replace(tzinfo=tz)
     if start_time <= end_time:

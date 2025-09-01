@@ -4,7 +4,6 @@ from sqlalchemy.orm import Session
 from . import models, time_utils, interpolation
 
 def get_max_poll_timestamp(db: Session) -> datetime:
-    """Determines the 'current time' from the latest poll timestamp."""
     max_ts = db.query(models.StoreStatusPoll.timestamp_utc).order_by(
         models.StoreStatusPoll.timestamp_utc.desc()
     ).first()
@@ -14,7 +13,6 @@ def _get_relevant_business_hours(
     window_start_utc: datetime, window_end_utc: datetime,
     business_hours_db: List[models.BusinessHours], tz: timezone
 ) -> List[Tuple[datetime, datetime]]:
-    """Calculates all UTC business hour intervals that overlap with the window."""
     if not business_hours_db:
         return [(window_start_utc, window_end_utc)]
 
@@ -40,7 +38,6 @@ def _calculate_total_duration(
     business_hours_utc: List[Tuple[datetime, datetime]],
     target_status: str
 ) -> timedelta:
-    """Calculates total duration of a status by intersecting with business hours."""
     total_duration = timedelta()
     for start, end, status in status_intervals:
         if status != target_status:

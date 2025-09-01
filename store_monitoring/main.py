@@ -43,7 +43,6 @@ def health_check():
     return {"status": "ok"}
 
 def ingest_task(path_str: str):
-    """Background task for ingesting data from CSV files."""
     try:
         data_dir = Path(path_str)
         print(f"Starting background ingestion from: {data_dir}")
@@ -55,7 +54,6 @@ def ingest_task(path_str: str):
 
 
 def generate_report_task(report_id: str):
-    """Background task that generates the full report for all stores."""
     db = SessionLocal()
     try:
         print(f"[{report_id}] Starting report generation...")

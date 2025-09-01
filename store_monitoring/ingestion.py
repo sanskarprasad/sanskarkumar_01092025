@@ -7,16 +7,6 @@ from sqlalchemy.engine import Engine
 from . import models
 
 def ingest_csv_data(engine: Engine, data_dir_path: Path) -> Dict[str, int]:
-    """
-    Reads CSV data using pandas, truncates tables, and bulk-loads new data.
-
-    Args:
-        engine: The SQLAlchemy database engine.
-        data_dir_path: The path to the directory containing the CSV files.
-
-    Returns:
-        A dictionary with the count of rows inserted for each table.
-    """
     files = {
         "store_status": data_dir_path / "store_status.csv",
         "business_hours": data_dir_path / "menu_hours.csv",
@@ -40,10 +30,10 @@ def ingest_csv_data(engine: Engine, data_dir_path: Path) -> Dict[str, int]:
 
 
         # Ingest Business Hours (with de-duplication)
-        df_hours = pd.read_csv(files["business_hours"])
-        df_hours.rename(columns={'dayOfWeek': 'day_of_week'}, inplace=True)
-        df_hours.drop_duplicates(subset=['store_id', 'day_of_week'], keep='last', inplace=True)
-        df_hours.to_sql(models.BusinessHours.__tablename__, conn, if_exists='append', index=False)
+        df_hours =  pd.read_csv(files["business_hours"])
+        df_hours.rename(columns={'dayOfWeek':  'day_of_week'}, inplace=True)
+        df_hours.drop_duplicates(subset=[ 'store_id', 'day_of_week'], keep='last', inplace=True)
+        df_hours.to_sql(models.BusinessHours. __tablename__, conn, if_exists='append', index=False)
         counts["business_hours"] = len(df_hours)
 
         # Ingest Store Timezones
