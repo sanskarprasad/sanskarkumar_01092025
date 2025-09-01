@@ -1,4 +1,0 @@
-store_id,status,timestamp_utc
-store1,active,2024-01-25 10:00:00.000000 UTC
-store1,inactive,2024-01-25 10:30:00.000000 UTC
-store2,active,2024-01-25 12:00:00.000000 UTC
